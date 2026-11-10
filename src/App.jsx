@@ -49,10 +49,10 @@ export default function App() {
 
   // Light nav treatment while any dark-background section is >55% on screen.
   // One observer over all of them, recomputing from the full picture, so the
-  // forum/signup hand-off can't race.
+  // hero/forum/signup hand-offs can't race.
   useEffect(() => {
     setInvert(false);
-    const els = document.querySelectorAll(".ucg-forum, .ucg-signup");
+    const els = document.querySelectorAll(".ucg-hero, .ucg-forum, .ucg-signup");
     if (!els.length) return;
     const ratios = new Map();
     const io = new IntersectionObserver(

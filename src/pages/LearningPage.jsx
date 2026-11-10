@@ -16,44 +16,31 @@ function SourceCard({ item, primary }) {
   );
 }
 
+// Interim page — the Learning Center is being rebuilt around the BLOOM wiki
+// (theBLOOMproject/wiki-playground).
 export default function LearningPage() {
   return (
     <div className="ucg-page">
       <Rings style={{ top: -380, right: -340 }} />
       <div className="ucg-page-inner">
         <h1 className="ucg-display" style={{ maxWidth: "18ch" }}>
-          Learning <span className="o">materials.</span>
+          Learning <span className="o">center.</span>
         </h1>
 
         <section className="ucg-lm-section ucg-lm-section-lead">
           <p className="ucg-lm-sub ucg-lm-lead">
-            The official materials that were prepared for use by the Solutions Forum delegates.
+            Background materials on AI in Central Oregon, prepared for Civic Assembly
+            delegates and anyone following along.
           </p>
-          <div className="ucg-grid">
-            {ACCESS_MATERIALS.map((item) => (
-              <SourceCard item={item} primary key={item.title} />
-            ))}
-          </div>
-
-          <figure className="ucg-lm-video">
-            <video
-              controls
-              playsInline
-              preload="metadata"
-              poster="/media/briefing-video-poster.jpg"
-            >
-              <source src="/media/briefing-video.mp4" type="video/mp4" />
-              Your browser can’t play embedded video.
-            </video>
-            <figcaption>Briefing Video — Utah Common Ground</figcaption>
-          </figure>
-        </section>
-
-        <hr className="ucg-lm-rule" />
-
-        <section className="ucg-lm-section">
-          <h2 className="ucg-lm-head">Other Helpful Resources</h2>
-          <p className="ucg-lm-sub">Coming soon.</p>
+          {ACCESS_MATERIALS.length > 0 ? (
+            <div className="ucg-grid">
+              {ACCESS_MATERIALS.map((item) => (
+                <SourceCard item={item} primary key={item.title} />
+              ))}
+            </div>
+          ) : (
+            <p className="ucg-lm-sub">Coming soon.</p>
+          )}
         </section>
       </div>
     </div>

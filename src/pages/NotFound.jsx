@@ -13,7 +13,7 @@ export default function NotFound() {
           That address doesn&rsquo;t lead anywhere on this site.
         </p>
         <Link className="ucg-link" to="/">
-          Back to the Forum{" "}
+          Back to the Assembly{" "}
           <span aria-hidden="true">→</span>
         </Link>
       </div>

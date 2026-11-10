@@ -13,8 +13,9 @@ export default function NewsPage() {
 
         <section className="ucg-lm-section ucg-lm-section-lead">
           <p className="ucg-lm-sub ucg-lm-lead">
-            Coverage of the Utah Solutions Forum process and outcomes.
+            Coverage of the Central Oregon Civic Assembly on AI.
           </p>
+          {NEWS.length === 0 && <p className="ucg-lm-sub">Coming soon.</p>}
           <div className="ucg-grid ucg-grid-2">
             {NEWS.map((item) => (
               <a
@@ -27,7 +28,7 @@ export default function NewsPage() {
                 <div className="ucg-source-row">
                   <h3>{item.title}</h3>
                   <span className="ucg-source-arrow">
-                    <Arrow size={22} color="var(--orange)" />
+                    <Arrow size={22} color="var(--blue)" />
                   </span>
                 </div>
                 <p>{item.source}</p>

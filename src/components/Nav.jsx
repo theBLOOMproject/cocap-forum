@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { NAV } from "../data.js";
+import { NAV, SITE_NAME } from "../data.js";
 import { pathForItem, useSite } from "../lib/navigation.js";
 import { useIsNarrow } from "../lib/hooks.js";
 
@@ -49,7 +49,7 @@ export default function Nav({ invert, current }) {
         }
       }}
     >
-      Utah Solutions Forum
+      {SITE_NAME}
     </Link>
   );
 

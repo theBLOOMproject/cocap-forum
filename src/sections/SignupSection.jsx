@@ -20,16 +20,16 @@ export default function SignupSection() {
         <div className="ucg-signup-inner">
           <h2 className="ucg-display">Stay in touch.</h2>
           <p className="ucg-signup-sub">
-            Sign up for updates from Utah Common Ground.
+            Follow along with the Central Oregon Civic Action Project.
           </p>
 
           <a
             className="ucg-signup-cta"
-            href="https://www.utahcommonground.org/#stayinvolved"
+            href="https://cocap.us/ai/"
             target="_blank"
             rel="noreferrer noopener"
           >
-            Sign up
+            Learn more
             <span className="ucg-signup-cta-icon">
               <Arrow size={20} color="#fff" />
             </span>

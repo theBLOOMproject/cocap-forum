@@ -64,9 +64,6 @@ export default function DelegatesPage() {
             <button className="ucg-btn" onClick={submit}>
               Unlock the portal
             </button>
-            <p className="ucg-gate-note">
-              Prototype: the code is <strong>{PORTAL_CODE}</strong>. Not real authentication.
-            </p>
           </div>
         ) : (
           <>
@@ -90,7 +87,7 @@ export default function DelegatesPage() {
                 PORTAL_DOC.map((s) => (
                   <section key={s.h}>
                     <h2>{s.h}</h2>
-                    {s.p.map((t, i) => (
+                    {s.p?.map((t, i) => (
                       <p key={i}>{t}</p>
                     ))}
                     {s.ul && (
@@ -103,7 +100,13 @@ export default function DelegatesPage() {
                   </section>
                 ))}
 
-              {tab === "Day 1" && (
+              {tab === "Day 1" && !DAY1_SCHEDULE && BREAKOUT_DOCS.length === 0 && (
+                <section>
+                  <p>Coming Soon</p>
+                </section>
+              )}
+
+              {tab === "Day 1" && BREAKOUT_DOCS.length > 0 && (
                 <section>
                   <h2>Breakout Documents</h2>
                   <p className="ucg-doc-wide">
@@ -122,7 +125,7 @@ export default function DelegatesPage() {
                         <div className="ucg-source-row">
                           <h3>{d.title}</h3>
                           <span className="ucg-source-arrow">
-                            <Arrow size={22} color="var(--orange)" />
+                            <Arrow size={22} color="var(--blue)" />
                           </span>
                         </div>
                       </a>
@@ -131,7 +134,7 @@ export default function DelegatesPage() {
                 </section>
               )}
 
-              {tab === "Day 1" && (
+              {tab === "Day 1" && DAY1_SCHEDULE && (
                 <section>
                   <h2>Schedule</h2>
                   <p className="ucg-doc-wide ucg-sched-day">

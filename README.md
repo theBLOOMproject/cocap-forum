@@ -1,7 +1,8 @@
-# Utah Common Ground — Solutions Forum
+# Central Oregon Civic Assembly on AI
 
-A small React site for the Solutions Forum on the role Utahns should have in
-decisions around AI (September 18–19, 2026).
+A small React site for the Central Oregon Civic Action Project's (COCAP) 2026
+Civic Assembly on AI (December 2026). Forked from the Utah Common Ground
+Solutions Forum site; CSS classes still use the `ucg-` prefix.
 
 Built with [Vite](https://vite.dev) + [React](https://react.dev) +
 [React Router](https://reactrouter.com). It began as a single-file prototype
@@ -23,8 +24,8 @@ npm run preview   # serve the production build locally
 | `/`           | Home — Hero, The Process, The Forum, Signup sections    |
 | `/#process`   | Home, scrolled to **The Process**                       |
 | `/#forum`     | Home, scrolled to **The Forum**                         |
-| `/learning`   | Learning Materials                                      |
-| `/delegates`  | Delegate Portal (prototype access code: `utah2026`)     |
+| `/learning`   | Learning Center (interim placeholder)                   |
+| `/delegates`  | Delegate Portal (access code: `cocap26`)       |
 | anything else | Not Found                                               |
 
 Client-side routing needs a server that falls back to `index.html` for unknown
@@ -34,18 +35,14 @@ for deployment on Vercel. For other hosts, add the equivalent SPA rewrite.
 ## Photos
 
 All imagery is referenced through `src/images.js`, which points at files in
-`public/images/` (served from the site root). The repo ships lightweight SVG
-placeholders. To use real photography, drop a file with the same base name into
-`public/images/` and update its extension in `src/images.js` — nothing else
-changes.
+`public/images/` (served from the site root).
 
-| Slot                  | File                                       | Used in                     |
-| --------------------- | ------------------------------------------ | --------------------------- |
-| Hero                  | `public/images/hero.svg`                   | `src/sections/Hero.jsx`     |
-| Process · step 1      | `public/images/process-steering-committee.svg` | `src/data.js` (`STEPS`) |
-| Process · step 2      | `public/images/process-set-agenda.svg`     | `src/data.js` (`STEPS`)     |
-| Process · step 3      | `public/images/process-assembly.svg`       | `src/data.js` (`STEPS`)     |
-| Favicon               | `public/images/favicon.svg`                | `index.html`                |
+| Slot                  | Where it's set                              |
+| --------------------- | ------------------------------------------- |
+| Hero frame (3 photos, cross-fade) | `IMAGES.hero` in `src/images.js` |
+| Supporter logos       | `IMAGES.logos` + `SUPPORTERS` in `src/data.js` (`placeholder: true` = empty slot) |
+| Process step images   | `IMAGES.process` — currently placeholders; replace `placeholder(...)` with `{ src, alt }` |
+| Favicon               | `public/images/favicon.svg`                 |
 
 ## Structure
 

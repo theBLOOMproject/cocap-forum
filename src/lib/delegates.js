@@ -1,4 +1,4 @@
-import { DELEGATES } from "../data.js";
+import { DELEGATE_SEATS } from "../data.js";
 
 function mulberry32(a) {
   return function () {
@@ -11,12 +11,12 @@ function mulberry32(a) {
 }
 
 /**
- * Lay the real delegate records (data.js) out as a deterministic organic
- * cluster: the N points nearest the centre of a jittered hex grid, normalised
- * into the 0–200 viewBox. Returns `{ ...delegate, id, cx, cy }`.
+ * Lay out DELEGATE_SEATS seats as a deterministic organic cluster: the N
+ * points nearest the centre of a jittered hex grid, normalised into the
+ * 0–200 viewBox. Returns `{ id, cx, cy }`.
  */
 export function layoutDelegates() {
-  const n = DELEGATES.length;
+  const n = DELEGATE_SEATS;
   const rnd = mulberry32(11);
   const raw = [];
   const s = 1;
@@ -43,7 +43,6 @@ export function layoutDelegates() {
   const span = 200;
 
   return picked.map((p, i) => ({
-    ...DELEGATES[i],
     id: i,
     cx: pad + ((p.x - minX) / (maxX - minX)) * (span - pad * 2),
     cy: pad + ((p.y - minY) / (maxY - minY)) * (span - pad * 2),

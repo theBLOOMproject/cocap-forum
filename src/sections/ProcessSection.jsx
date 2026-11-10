@@ -3,6 +3,35 @@ import Rings from "../components/Rings.jsx";
 import { STEPS, STEP_MS } from "../data.js";
 import { usePrefersReducedMotion, useIsNarrow } from "../lib/hooks.js";
 
+function CardImage({ image, style }) {
+  if (!image) return null;
+  return (
+    <div className="ucg-card-img" style={style}>
+      {image.placeholder ? (
+        <span className="ucg-card-img-ph">{image.label} &middot; coming soon</span>
+      ) : (
+        <img src={image.src} alt={image.alt} />
+      )}
+    </div>
+  );
+}
+
+function StepLink({ link, tabIndex }) {
+  if (!link) return null;
+  return (
+    <a
+      className="ucg-card-link"
+      href={link.href}
+      target="_blank"
+      rel="noreferrer noopener"
+      tabIndex={tabIndex}
+    >
+      {link.label}
+      <span aria-hidden="true">&#8599;</span>
+    </a>
+  );
+}
+
 /**
  * The element type and DOM shape stay identical whether the card is open or
  * closed — swapping tags would remount the node and skip the transition.
@@ -14,18 +43,17 @@ function ProcessCard({ step, open, progress, onClick }) {
         className="ucg-card-progress"
         style={{ width: `${(open ? progress : 0) * 100}%`, opacity: open ? 1 : 0 }}
       />
-      <button className="ucg-card-head" onClick={onClick} aria-expanded={open} disabled={open}>
-        <h3 className="ucg-card-title">{step.title}</h3>
-      </button>
+      <div className="ucg-card-headrow">
+        <button className="ucg-card-head" onClick={onClick} aria-expanded={open} disabled={open}>
+          <h3 className="ucg-card-title">{step.title}</h3>
+        </button>
+        <StepLink link={step.link} />
+      </div>
       <div className="ucg-card-reveal">
         <div>
           <div className="ucg-card-inner">
             <p className="ucg-card-blurb">{step.blurb}</p>
-            {step.image && (
-              <div className="ucg-card-img">
-                <img src={step.image.src} alt={step.image.alt} />
-              </div>
-            )}
+            <CardImage image={step.image} />
           </div>
         </div>
       </div>
@@ -33,19 +61,18 @@ function ProcessCard({ step, open, progress, onClick }) {
   );
 }
 
-function MobileCard({ step }) {
+function MobileCard({ step, active }) {
   return (
     <div className="ucg-card is-open">
       <div className="ucg-card-pad">
-        {step.image && (
-          <div className="ucg-card-img" style={{ marginTop: 0 }}>
-            <img src={step.image.src} alt={step.image.alt} />
-          </div>
-        )}
-        <p className="ucg-card-blurb" style={{ marginTop: step.image ? 18 : 0 }}>
+        <div className="ucg-card-mhead">
+          <h3 className="ucg-card-title">{step.title}</h3>
+          <StepLink link={step.link} tabIndex={active ? 0 : -1} />
+        </div>
+        <CardImage image={step.image} style={{ marginTop: 16 }} />
+        <p className="ucg-card-blurb" style={{ marginTop: 18 }}>
           {step.blurb}
         </p>
-        {/* mobile cards are always expanded, so no reveal wrapper */}
       </div>
     </div>
   );
@@ -130,12 +157,13 @@ export default function ProcessSection() {
         <div className="ucg-split">
           <div>
             <h2 className="ucg-display">
-              AI has huge implications for <span className="o">Utah&rsquo;s future&hellip;</span>
+              AI has huge implications for{" "}
+              <span className="o">Central Oregon&rsquo;s future&hellip;</span>
             </h2>
             <p className="ucg-body">
-              &hellip;so starting in March 2026, we engaged Utahns in dialogue related to
-              how AI was affecting people&rsquo;s lives, and how best to influence what
-              happened next.
+              &hellip;so starting in April 2026, we engaged Central Oregonians in dialogue
+              about how AI is affecting people&rsquo;s lives, and how best to influence what
+              happens next.
             </p>
           </div>
 
@@ -146,9 +174,9 @@ export default function ProcessSection() {
                   className="ucg-carousel-track"
                   style={{ transform: `translateX(-${active * 100}%)` }}
                 >
-                  {STEPS.map((s) => (
+                  {STEPS.map((s, i) => (
                     <div className="ucg-carousel-cell" key={s.id}>
-                      <MobileCard step={s} />
+                      <MobileCard step={s} active={i === active} />
                     </div>
                   ))}
                 </div>

@@ -1,6 +1,6 @@
 export default function Rings({
   style,
-  stroke = "rgba(238,123,60,0.10)",
+  stroke = "rgba(0,103,177,0.06)",
   width = 34,
   radii = [140, 210, 280, 350, 420],
 }) {

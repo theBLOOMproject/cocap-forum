@@ -1,9 +1,9 @@
 {
-  "name": "ucg-forum",
+  "name": "cocap-forum",
   "private": true,
   "version": "0.1.0",
   "type": "module",
-  "description": "Utah Common Ground — Solutions Forum",
+  "description": "Central Oregon Civic Action Project — Civic Assembly on AI",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

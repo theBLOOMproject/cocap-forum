@@ -11,9 +11,13 @@ const RESOLVED = "\0" + ID;
 export default function learning({ contentDir, hideSections = [], sectionOrder = null }) {
   const dir = path.resolve(contentDir);
   let server;
+  let base = "/";
 
   return {
     name: "cocap-learning",
+    configResolved(config) {
+      base = config.base;
+    },
     resolveId(id) {
       return id === ID ? RESOLVED : null;
     },
@@ -49,6 +53,13 @@ export default function learning({ contentDir, hideSections = [], sectionOrder =
       }
 
       const { images, files, ...payload } = data;
+      // Page links are written as "/learning/…"; prefix the deploy base so
+      // they also work when opened in a new tab under a subpath.
+      if (base !== "/") {
+        const withBase = (html) => html.replaceAll('href="/learning', `href="${base}learning`);
+        for (const p of Object.values(payload.pages)) p.html = withBase(p.html);
+        payload.home.html = withBase(payload.home.html);
+      }
       files.forEach((f) => this.addWatchFile(f));
 
       const imports = images.map((file, i) => `import img${i} from ${JSON.stringify(file)};`).join("\n");
@@ -56,7 +67,8 @@ export default function learning({ contentDir, hideSections = [], sectionOrder =
       return `${imports}
 const data = ${JSON.stringify(payload)};
 const urls = ${urls};
-const fill = (html) => urls.reduce((h, u, i) => h.split(${JSON.stringify(imageToken("I"))}.replace("I", i)).join(u), html);
+const tokens = ${JSON.stringify(images.map((_, i) => imageToken(i)))};
+const fill = (html) => tokens.reduce((h, t, i) => h.split(t).join(urls[i]), html);
 for (const p of Object.values(data.pages)) p.html = fill(p.html);
 data.home.html = fill(data.home.html);
 export default data;

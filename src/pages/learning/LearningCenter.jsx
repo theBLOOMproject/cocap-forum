@@ -36,7 +36,10 @@ function Html({ html, className }) {
     const a = e.target.closest("a[data-lc-link]");
     if (!a || e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
     e.preventDefault();
-    navigate(a.getAttribute("href"));
+    // hrefs carry the deploy base (e.g. /cocap-forum/); the router adds its own
+    const href = a.getAttribute("href");
+    const base = import.meta.env.BASE_URL;
+    navigate(href.startsWith(base) ? "/" + href.slice(base.length) : href);
   };
   return <div className={className} onClick={onClick} dangerouslySetInnerHTML={{ __html: html }} />;
 }

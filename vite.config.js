@@ -4,6 +4,9 @@ import learning from "./learning/vite-plugin.mjs";
 
 // https://vite.dev/config/
 export default defineConfig({
+  // "/" locally and on Vercel; the GitHub Pages workflow sets BASE_PATH to
+  // "/cocap-forum/" because Pages serves the site from that subpath.
+  base: process.env.BASE_PATH || "/",
   plugins: [
     react(),
     learning({

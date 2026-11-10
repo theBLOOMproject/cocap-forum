@@ -5,7 +5,7 @@
  * these paths work in dev, in `vite preview`, and in production.
  * ------------------------------------------------------------------ */
 
-const base = "/images";
+const base = `${import.meta.env.BASE_URL}images`;
 
 /** Marker for an image slot that doesn't have a photo yet. */
 const placeholder = (label) => ({ placeholder: true, label });

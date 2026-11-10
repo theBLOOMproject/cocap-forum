@@ -1,0 +1,12 @@
+node_modules
+dist
+dist-ssr
+*.local
+.DS_Store
+.vercel
+npm-debug.log*
+
+# local design source files (originals); optimized copies live in public/
+design-assets/
+reference/*.mp4
+reference/*.mov

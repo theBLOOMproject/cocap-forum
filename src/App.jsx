@@ -1,20 +1,25 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { lazy, Suspense, useCallback, useEffect, useMemo, useState } from "react";
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import Nav from "./components/Nav.jsx";
 import Home from "./pages/Home.jsx";
-import LearningPage from "./pages/LearningPage.jsx";
 import NewsPage from "./pages/NewsPage.jsx";
 import DelegatesPage from "./pages/DelegatesPage.jsx";
 import NotFound from "./pages/NotFound.jsx";
 import { SiteContext } from "./lib/navigation.js";
 import { usePrefersReducedMotion } from "./lib/hooks.js";
 
+// Split out: the Learning Center carries the whole reading library.
+const LearningCenter = lazy(() => import("./pages/learning/LearningCenter.jsx"));
+
 /** pathname -> NAV target, for highlighting the current nav item. */
 const CURRENT_BY_PATH = {
-  "/learning": "learning",
   "/news": "news",
   "/delegates": "delegates",
 };
+const currentFor = (pathname) =>
+  pathname === "/learning" || pathname.startsWith("/learning/")
+    ? "learning"
+    : CURRENT_BY_PATH[pathname] ?? null;
 
 export default function App() {
   const location = useLocation();
@@ -77,7 +82,7 @@ export default function App() {
     }
   }, [location.pathname, location.hash, scrollToId]);
 
-  const current = CURRENT_BY_PATH[location.pathname] ?? null;
+  const current = currentFor(location.pathname);
   const ctx = useMemo(() => ({ go }), [go]);
 
   return (
@@ -86,7 +91,14 @@ export default function App() {
         <Nav invert={invert} current={current} />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/learning" element={<LearningPage />} />
+          <Route
+            path="/learning/:pageId?"
+            element={
+              <Suspense fallback={<div className="ucg-page" />}>
+                <LearningCenter />
+              </Suspense>
+            }
+          />
           <Route path="/news" element={<NewsPage />} />
           <Route path="/delegates" element={<DelegatesPage />} />
           <Route path="*" element={<NotFound />} />

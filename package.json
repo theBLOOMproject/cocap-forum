@@ -7,7 +7,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "sync-learning": "node scripts/sync-learning.mjs"
   },
   "dependencies": {
     "react": "^18.3.1",
@@ -16,6 +17,12 @@
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.3.1",
+    "cheerio": "^1.2.0",
+    "gray-matter": "^4.0.3",
+    "js-yaml": "^5.5.0",
+    "markdown-it": "^15.0.3",
+    "markdown-it-container": "^4.0.0",
+    "markdown-it-deflist": "^4.0.0",
     "vite": "^5.4.8"
   }
 }

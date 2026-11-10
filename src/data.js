@@ -71,13 +71,6 @@ export const STEP_MS = 5000;
 /** Number of seats drawn in the forum-section dot cluster. */
 export const DELEGATE_SEATS = 40;
 
-/**
- * Learning-materials cards. Every card is just: title, url (or file), and the
- * author/source it came from (rendered as "From <source>").
- * Empty until the Learning Center is rebuilt.
- */
-export const ACCESS_MATERIALS = [];
-
 /** Press coverage for the News page. */
 export const NEWS = [];
 

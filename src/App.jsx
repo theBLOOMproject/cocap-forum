@@ -2,8 +2,10 @@ import { lazy, Suspense, useCallback, useEffect, useMemo, useState } from "react
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import Nav from "./components/Nav.jsx";
 import Home from "./pages/Home.jsx";
-import NewsPage from "./pages/NewsPage.jsx";
-import DelegatesPage from "./pages/DelegatesPage.jsx";
+// News and the Delegate Portal are hidden for now. To bring them back,
+// restore these imports, the routes below, and their NAV entries in data.js.
+// import NewsPage from "./pages/NewsPage.jsx";
+// import DelegatesPage from "./pages/DelegatesPage.jsx";
 import NotFound from "./pages/NotFound.jsx";
 import { SiteContext } from "./lib/navigation.js";
 import { usePrefersReducedMotion } from "./lib/hooks.js";
@@ -13,8 +15,8 @@ const LearningCenter = lazy(() => import("./pages/learning/LearningCenter.jsx"))
 
 /** pathname -> NAV target, for highlighting the current nav item. */
 const CURRENT_BY_PATH = {
-  "/news": "news",
-  "/delegates": "delegates",
+  // "/news": "news",
+  // "/delegates": "delegates",
 };
 const currentFor = (pathname) =>
   pathname === "/learning" || pathname.startsWith("/learning/")
@@ -99,8 +101,8 @@ export default function App() {
               </Suspense>
             }
           />
-          <Route path="/news" element={<NewsPage />} />
-          <Route path="/delegates" element={<DelegatesPage />} />
+          {/* <Route path="/news" element={<NewsPage />} /> */}
+          {/* <Route path="/delegates" element={<DelegatesPage />} /> */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>

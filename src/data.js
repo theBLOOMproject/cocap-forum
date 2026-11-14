@@ -17,13 +17,15 @@ export const SITE_NAME = "Central Oregon Civic Assembly on AI";
  */
 export const NAV = [
   { label: "Learning Center", kind: "route", target: "learning" },
-  { label: "News", kind: "route", target: "news" },
+  // Hidden for now (page kept in src/pages/NewsPage.jsx; route in App.jsx):
+  // { label: "News", kind: "route", target: "news" },
   {
     label: "More about COCAP",
     kind: "external",
     href: "https://cocap.us/ai/",
   },
-  { label: "Delegate Portal", kind: "route", target: "delegates", pill: true },
+  // Hidden for now (page kept in src/pages/DelegatesPage.jsx; route in App.jsx):
+  // { label: "Delegate Portal", kind: "route", target: "delegates", pill: true },
 ];
 
 /**

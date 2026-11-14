@@ -7,17 +7,14 @@
 
 const base = `${import.meta.env.BASE_URL}images`;
 
-/** Marker for an image slot that doesn't have a photo yet. */
-const placeholder = (label) => ({ placeholder: true, label });
-
 export const IMAGES = {
   favicon: `${base}/favicon.svg`,
 
   // Hero — photos that cross-fade inside the rounded frame on the right.
   hero: [
     {
-      src: `${base}/IMG_7374.jpg`,
-      alt: "Two Central Oregon residents working through ideas together at a table",
+      src: `${base}/IMG_7406.jpg`,
+      alt: "A Central Oregon resident sharing her perspective during a community conversation",
     },
     {
       src: `${base}/IMG_7409.jpg`,
@@ -35,11 +32,16 @@ export const IMAGES = {
     "bloom-project": `${base}/logos/bloom.png`,
   },
 
-  // "The Process" accordion — one 16:9 image per step, keyed by step id.
-  // Placeholders render as a labelled block until real photos are added.
+  // "The Process" accordion — an optional 16:9 image per step, keyed by
+  // step id. Steps without an entry show no image.
   process: {
-    "open-poll": placeholder("Open Poll image"),
-    "community-conversations": placeholder("Community Conversations photo"),
-    "steering-committee": placeholder("Steering Committee photo"),
+    "steering-committee": {
+      src: `${base}/IMG_7374.jpg`,
+      alt: "Two Central Oregon residents working through ideas together at a table",
+    },
+    "community-conversations": {
+      src: `${base}/IMG_7394.jpg`,
+      alt: "A Central Oregon resident speaking during a community conversation",
+    },
   },
 };

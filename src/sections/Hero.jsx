@@ -70,24 +70,28 @@ export default function Hero() {
 
             <div style={{ marginTop: 56 }}>
               <p className="ucg-eyebrow">Supported by</p>
-              <div className="ucg-marquee">
-                <div className="ucg-marquee-track">
-                  {[...SUPPORTERS, ...SUPPORTERS].map((s, i) => {
-                    const dupe = i >= SUPPORTERS.length;
-                    return (
-                      <div className="ucg-logo" key={i} aria-hidden={dupe || s.placeholder}>
-                        {s.placeholder ? (
-                          <span className="ucg-logo-ph">Logo</span>
-                        ) : s.logo ? (
-                          <img src={s.logo} alt={dupe ? "" : s.name} loading="lazy" />
-                        ) : (
-                          s.name
-                        )}
-                      </div>
-                    );
-                  })}
+              {SUPPORTERS.length < 4 ? (
+                <div className="ucg-logo-row">
+                  {SUPPORTERS.map((s) => (
+                    <div className="ucg-logo" key={s.name}>
+                      {s.logo ? <img src={s.logo} alt={s.name} loading="lazy" /> : s.name}
+                    </div>
+                  ))}
                 </div>
-              </div>
+              ) : (
+                <div className="ucg-marquee">
+                  <div className="ucg-marquee-track">
+                    {[...SUPPORTERS, ...SUPPORTERS].map((s, i) => {
+                      const dupe = i >= SUPPORTERS.length;
+                      return (
+                        <div className="ucg-logo" key={i} aria-hidden={dupe}>
+                          {s.logo ? <img src={s.logo} alt={dupe ? "" : s.name} loading="lazy" /> : s.name}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
 

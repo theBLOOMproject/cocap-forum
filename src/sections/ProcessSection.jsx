@@ -7,11 +7,7 @@ function CardImage({ image, style }) {
   if (!image) return null;
   return (
     <div className="ucg-card-img" style={style}>
-      {image.placeholder ? (
-        <span className="ucg-card-img-ph">{image.label} &middot; coming soon</span>
-      ) : (
-        <img src={image.src} alt={image.alt} />
-      )}
+      <img src={image.src} alt={image.alt} />
     </div>
   );
 }

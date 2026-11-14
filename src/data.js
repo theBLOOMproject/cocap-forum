@@ -27,20 +27,26 @@ export const NAV = [
 ];
 
 /**
- * Hero marquee supporters. `logo` is optional — when present it renders as an
- * image; `placeholder: true` renders an empty logo slot to fill in later.
+ * Hero supporters. `logo` is optional — when present it renders as an image,
+ * otherwise the name shows as text. With fewer than four they sit in a static
+ * row; four or more scroll as a marquee.
  */
 export const SUPPORTERS = [
   { name: "Central Oregon Civic Action Project", logo: IMAGES.logos.cocap },
   { name: "BLOOM Project", logo: IMAGES.logos["bloom-project"] },
-  { name: "Partner logo", placeholder: true },
-  { name: "Partner logo", placeholder: true },
-  { name: "Partner logo", placeholder: true },
 ];
 
 export const POLL_REPORT_URL = "https://report.bloomproject.us/central-oregon-ai";
 
 export const STEPS = [
+  {
+    id: "steering-committee",
+    title: "Steering Committee",
+    // TODO: confirm with COCAP — no public description of the committee yet.
+    blurb:
+      "A steering committee of Central Oregon community members and local partners guided the process: shaping the questions, reviewing materials for balance, and helping make sure the Civic Assembly reflects the whole region.",
+    image: IMAGES.process["steering-committee"],
+  },
   {
     id: "open-poll",
     title: "Open Poll",
@@ -55,14 +61,6 @@ export const STEPS = [
     blurb:
       "Through the summer and fall, small-group conversations — online and in person, hosted by local partners across the region — went deeper into what the Open Poll surfaced. In October, an open, World Café–style Community Café brought even more voices into the process.",
     image: IMAGES.process["community-conversations"],
-  },
-  {
-    id: "steering-committee",
-    title: "Steering Committee",
-    // TODO: confirm with COCAP — no public description of the committee yet.
-    blurb:
-      "A steering committee of Central Oregon community members and local partners guided the process: shaping the questions, reviewing materials for balance, and helping make sure the Civic Assembly reflects the whole region.",
-    image: IMAGES.process["steering-committee"],
   },
 ];
 

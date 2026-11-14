@@ -191,6 +191,8 @@ html { overflow-x: hidden; }
 
 /* ---------- logo marquee ---------- */
 .ucg-marquee { margin-top: 52px; max-width: 620px; overflow: hidden; mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+/* static row when there are too few logos to scroll */
+.ucg-logo-row { margin-top: 52px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 0; margin-left: -34px; }
 .ucg-marquee-track { display: flex; width: max-content; animation: ucg-slide 26s linear infinite; }
 .ucg-marquee:hover .ucg-marquee-track { animation-play-state: paused; }
 .ucg-logo {
@@ -474,6 +476,7 @@ html { overflow-x: hidden; }
   .ucg-hero-cta svg { transition: transform 180ms ease; }
   .ucg-hero-cta:active svg { transform: translateY(2px); }
   .ucg-marquee { max-width: 100%; margin-top: 38px; }
+  .ucg-logo-row { margin-top: 38px; }
   .ucg-forum-copy { order: 1; }
   .ucg-forum-viz { order: 2; }
   .ucg-card { border-radius: 20px; box-shadow: 0 8px 24px rgba(25, 53, 97,0.13); }
@@ -538,12 +541,6 @@ html { overflow-x: hidden; }
 /* logos on blue: knock out to white */
 .ucg-hero .ucg-logo { color: #fff; opacity: 0.88; }
 .ucg-hero .ucg-logo img { filter: brightness(0) invert(1); }
-.ucg-logo-ph {
-  display: grid; place-items: center; width: 132px; height: 42px;
-  border: 1.5px dashed rgba(255, 255, 255, 0.45); border-radius: 10px;
-  font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.6);
-}
 
 /* ---------- process cards: header row with optional link ---------- */
 .ucg-card-headrow { display: flex; align-items: center; gap: 12px; }
@@ -561,12 +558,6 @@ html { overflow-x: hidden; }
 }
 .ucg .ucg-card-link:hover { background: var(--blue); color: #fff; }
 .ucg-card-mhead { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-.ucg-card-img-ph {
-  position: absolute; inset: 0; display: grid; place-items: center; text-align: center; padding: 12px;
-  font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
-  color: rgba(25, 53, 97, 0.5);
-  border: 1.5px dashed rgba(25, 53, 97, 0.2); border-radius: 12px;
-}
 
 @media (max-width: 1100px) {
   .ucg-hero-split { grid-template-columns: 1fr 0.8fr; gap: 44px; }

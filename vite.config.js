@@ -11,15 +11,10 @@ export default defineConfig({
     react(),
     learning({
       contentDir: "learning/content",
-      // Wiki sections (by title in learning/content/site.yml) not shown on this site.
-      hideSections: ["Defining the problem"],
-      // Order of the remaining sections on this site (must list all of them).
-      sectionOrder: [
-        "Introduction & overview",
-        "AI-related decisions in Central Oregon",
-        "Public engagement",
-        "Developing recommendations",
-      ],
+      // Site-side section overrides (titles from learning/content/site.yml):
+      //   hideSections: ["Title"]  — sections not shown on this site
+      //   sectionOrder: [...]      — reorder; must list every visible section
+      // None for now: the site follows the wiki's sections and order.
     }),
   ],
 });

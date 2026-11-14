@@ -21,12 +21,52 @@ function HomeIcon() {
   );
 }
 
-function StatusPill({ page }) {
-  return page.status === "draft" ? (
-    <span className="lc-pill draft">Draft</span>
-  ) : (
-    <span className="lc-pill soon">Coming soon</span>
+function AskIcon() {
+  return (
+    <svg width="17" height="17" viewBox="0 0 16 16" aria-hidden="true">
+      <circle cx="8" cy="8" r="7.2" fill="currentColor" />
+      <path
+        d="M6.2 6.2a1.9 1.9 0 0 1 3.7.5c0 1.3-1.9 1.6-1.9 2.8"
+        fill="none"
+        style={{ stroke: "var(--ask-q)" }}
+        strokeWidth="1.7"
+        strokeLinecap="round"
+      />
+      <circle cx="8" cy="11.7" r="1" style={{ fill: "var(--ask-q)" }} />
+    </svg>
   );
+}
+
+/** "Ask a question" link to the Questions form (ask_url in site.yml). */
+function AskLink({ url, className }) {
+  if (!url) return null;
+  return (
+    <a className={className} href={url} target="_blank" rel="noopener noreferrer">
+      <span className="lc-ask-icon">
+        <AskIcon />
+      </span>
+      Ask a question
+    </a>
+  );
+}
+
+/** Orange star for pages marked star: true in site.yml. */
+function Star({ focusable }) {
+  return (
+    <span
+      className="lc-star"
+      role="img"
+      aria-label="Important topic"
+      data-tip="Important topic"
+      tabIndex={focusable ? 0 : undefined}
+    >
+      ★
+    </span>
+  );
+}
+
+function SoonPill({ page }) {
+  return page.status === "soon" ? <span className="lc-pill soon">Coming soon</span> : null;
 }
 
 /** Rendered page HTML. Internal links route client-side. */
@@ -44,13 +84,19 @@ function Html({ html, className }) {
   return <div className={className} onClick={onClick} dangerouslySetInnerHTML={{ __html: html }} />;
 }
 
-function Sidebar({ sections, pages, currentId, currentSection }) {
+function Sidebar({ sections, pages, askUrl, currentId, currentSection }) {
   return (
     <>
       <Link className="lc-brand" to={BASE}>
         <span className="lc-brand-title">Learning Center</span>
         <span className="lc-brand-sub">Central Oregon Civic Assembly on AI</span>
       </Link>
+      {askUrl && (
+        <>
+          <AskLink url={askUrl} className="lc-ask-link" />
+          <hr className="lc-side-rule" />
+        </>
+      )}
       <nav aria-label="Learning Center pages">
         <ul className="lc-nav">
           <li>
@@ -129,10 +175,8 @@ function Pager({ prev, next }) {
 }
 
 function Home({ data }) {
-  const { home, sections, pages, order } = data;
-  const drafts = order.filter((id) => pages[id].status === "draft");
-  const minutes = drafts.reduce((n, id) => n + pages[id].minutes, 0);
-  const start = drafts[0] ?? order[0];
+  const { home, sections, pages, order, askUrl } = data;
+  const start = order.find((id) => pages[id].status === "draft") ?? order[0];
   return (
     <article>
       <h1 className="lc-home-title">{home.title}</h1>
@@ -142,9 +186,7 @@ function Home({ data }) {
         <Link className="lc-btn" to={hrefFor(start)}>
           Start reading <span aria-hidden="true">→</span>
         </Link>
-        <span className="lc-home-progress">
-          {drafts.length} of {order.length} pages available, about {minutes} minutes of reading
-        </span>
+        <AskLink url={askUrl} className="lc-btn lc-btn-ask" />
       </div>
       <div className="lc-outline">
         {sections.map((s) => (
@@ -161,8 +203,11 @@ function Home({ data }) {
                 return (
                   <li key={p.id} className={p.sub ? "sub" : undefined}>
                     <div className="lc-outline-row">
-                      <Link to={hrefFor(p.id)}>{page.title}</Link>
-                      <StatusPill page={page} />
+                      <Link to={hrefFor(p.id)}>
+                        {page.title}
+                        {p.star && <Star />}
+                      </Link>
+                      <SoonPill page={page} />
                       <span className="time">{page.minutes ? `${page.minutes} min read` : "—"}</span>
                     </div>
                   </li>
@@ -180,6 +225,7 @@ function Home({ data }) {
 function Article({ data, page }) {
   const { sections, pages, order } = data;
   const section = sections.find((s) => s.num === page.section);
+  const starred = section.pages.find((p) => p.id === page.id)?.star;
   const i = order.indexOf(page.id);
   const prev = i === 0 ? { id: "home", title: "Home" } : pages[order[i - 1]];
   const next = pages[order[i + 1]];
@@ -190,9 +236,12 @@ function Article({ data, page }) {
           <Link to={hrefFor(section.pages[0].id)}>{section.title}</Link>
         </p>
       )}
-      <h1 tabIndex={-1}>{page.title}</h1>
+      <h1 tabIndex={-1}>
+        {page.title}
+        {starred && <Star focusable />}
+      </h1>
       <p className="lc-meta">
-        <StatusPill page={page} />
+        <SoonPill page={page} />
         {page.minutes && <span>{page.minutes} min read</span>}
       </p>
       <Html className="lc-body" html={page.html} />
@@ -291,6 +340,7 @@ export default function LearningCenter() {
             <Sidebar
               sections={data.sections}
               pages={data.pages}
+              askUrl={data.askUrl}
               currentId={id}
               currentSection={page?.section}
             />

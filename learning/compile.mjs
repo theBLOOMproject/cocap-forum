@@ -272,7 +272,7 @@ function createCompiler(contentDir, { hideSections = [], sectionOrder = null } =
           if (!p.id || !p.nav) fail(`content/site.yml: every page needs an id and a nav label (section "${s.title}")`);
           if (seen.has(p.id)) fail(`content/site.yml: page "${p.id}" is listed twice`);
           seen.add(p.id);
-          return { id: p.id, nav: p.nav, sub: !!p.sub };
+          return { id: p.id, nav: p.nav, sub: !!p.sub, star: !!p.star };
         }),
       };
     });
@@ -339,7 +339,7 @@ function createCompiler(contentDir, { hideSections = [], sectionOrder = null } =
       html: $home.html().trim(),
     };
 
-    return { sections: PUBLIC, pages, order, home, images: [...images], files: [...files] };
+    return { sections: PUBLIC, pages, order, home, askUrl: site.ask_url || null, images: [...images], files: [...files] };
   }
 
   return { compile };

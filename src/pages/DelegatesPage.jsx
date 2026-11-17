@@ -1,15 +1,8 @@
 import { useState } from "react";
 import Rings from "../components/Rings.jsx";
-import Arrow from "../components/Arrow.jsx";
-import {
-  PORTAL_CODE,
-  PORTAL_DOC,
-  PORTAL_CONTACT_EMAIL,
-  BREAKOUT_DOCS,
-  DAY1_SCHEDULE,
-} from "../data.js";
+import { PORTAL_CODE, PORTAL_DOC, PORTAL_CONTACT_EMAIL, SCHEDULE } from "../data.js";
 
-const TABS = ["Basic Information", "Day 1", "Day 2"];
+const TABS = ["Basic Information", "Schedule"];
 
 export default function DelegatesPage() {
   const [pass, setPass] = useState("");
@@ -87,6 +80,25 @@ export default function DelegatesPage() {
                 PORTAL_DOC.map((s) => (
                   <section key={s.h}>
                     <h2>{s.h}</h2>
+                    {s.facts && (
+                      <dl className="ucg-facts">
+                        {s.facts.map((f) => (
+                          <div className="ucg-fact" key={f.label}>
+                            <dt>{f.label}</dt>
+                            <dd>
+                              {f.lines.map((l) => (
+                                <span key={l}>{l}</span>
+                              ))}
+                              {f.link && (
+                                <a href={f.link.href} target="_blank" rel="noreferrer noopener">
+                                  {f.link.label} <span aria-hidden="true">&#8599;</span>
+                                </a>
+                              )}
+                            </dd>
+                          </div>
+                        ))}
+                      </dl>
+                    )}
                     {s.p?.map((t, i) => (
                       <p key={i}>{t}</p>
                     ))}
@@ -112,48 +124,21 @@ export default function DelegatesPage() {
                   </section>
                 ))}
 
-              {tab === "Day 1" && !DAY1_SCHEDULE && BREAKOUT_DOCS.length === 0 && (
+              {tab === "Schedule" && !SCHEDULE && (
                 <section>
-                  <p>Coming Soon</p>
+                  <h2>Schedule</h2>
+                  <p>Coming soon.</p>
                 </section>
               )}
 
-              {tab === "Day 1" && BREAKOUT_DOCS.length > 0 && (
-                <section>
-                  <h2>Breakout Documents</h2>
-                  <p className="ucg-doc-wide">
-                    Access the documents for your breakout groups here, including notes, feedback,
-                    and more.
-                  </p>
-                  <div className="ucg-grid">
-                    {BREAKOUT_DOCS.map((d) => (
-                      <a
-                        key={d.title}
-                        className="ucg-source"
-                        href={d.url}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        <div className="ucg-source-row">
-                          <h3>{d.title}</h3>
-                          <span className="ucg-source-arrow">
-                            <Arrow size={22} color="var(--blue)" />
-                          </span>
-                        </div>
-                      </a>
-                    ))}
-                  </div>
-                </section>
-              )}
-
-              {tab === "Day 1" && DAY1_SCHEDULE && (
+              {tab === "Schedule" && SCHEDULE && (
                 <section>
                   <h2>Schedule</h2>
                   <p className="ucg-doc-wide ucg-sched-day">
-                    {DAY1_SCHEDULE.day}: {DAY1_SCHEDULE.title}
+                    {SCHEDULE.day}: {SCHEDULE.title}
                   </p>
                   <div className="ucg-sched">
-                    {DAY1_SCHEDULE.items.map((it) => (
+                    {SCHEDULE.items.map((it) => (
                       <div className="ucg-sched-row" key={it.time + it.label}>
                         <span className="ucg-sched-time">{it.time}</span>
                         <span className="ucg-sched-label">
@@ -163,12 +148,6 @@ export default function DelegatesPage() {
                       </div>
                     ))}
                   </div>
-                </section>
-              )}
-
-              {tab === "Day 2" && (
-                <section>
-                  <p>Coming Soon</p>
                 </section>
               )}
 

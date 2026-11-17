@@ -24,8 +24,7 @@ export const NAV = [
     kind: "external",
     href: "https://cocap.us/ai/",
   },
-  // Hidden for now (page kept in src/pages/DelegatesPage.jsx; route in App.jsx):
-  // { label: "Delegate Portal", kind: "route", target: "delegates", pill: true },
+  { label: "Delegate Portal", kind: "route", target: "delegates", pill: true },
 ];
 
 /**
@@ -78,14 +77,28 @@ export const PORTAL_CODE = "cocap26";
 
 /**
  * Basic Information tab of the Delegate Portal. Each section has a heading
- * (`h`) and any of: paragraphs (`p`), bullets (`ul`), or a YouTube video
+ * (`h`) and any of: labelled facts (`facts`: a label, its lines of text, and
+ * an optional link), paragraphs (`p`), bullets (`ul`), or a YouTube video
  * (`youtube`: the video id from its URL, plus a `title` for screen readers).
  */
 export const PORTAL_DOC = [
   {
     h: "Basic Logistics",
-    p: [
-      "The Civic Assembly will take place in December 2026. Venue, schedule, meals, and stipend details will be posted here soon.",
+    facts: [
+      { label: "Date", lines: ["Saturday & Sunday, December 5 & 6, 2026"] },
+      {
+        label: "Location",
+        lines: [
+          "Central Oregon Community College",
+          "Redmond Technology Education Center",
+          "2324 SE College Loop",
+          "Redmond, OR 97756",
+        ],
+        link: {
+          href: "https://www.google.com/maps/search/?api=1&query=2324+SE+College+Loop+Redmond+OR+97756",
+          label: "Get directions",
+        },
+      },
     ],
   },
   {
@@ -96,8 +109,8 @@ export const PORTAL_DOC = [
 
 export const PORTAL_CONTACT_EMAIL = "info@cocap.us";
 
-/** Day 1 schedule for the Delegate Portal; null shows "Coming soon". */
-export const DAY1_SCHEDULE = null;
-
-/** Breakout-group documents for the Delegate Portal. */
-export const BREAKOUT_DOCS = [];
+/**
+ * Schedule tab of the Delegate Portal; null shows "Coming soon". Shape:
+ * { day: "Saturday, Dec 5", title: "…", items: [{ time, label, note? }] }
+ */
+export const SCHEDULE = null;

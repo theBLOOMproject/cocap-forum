@@ -410,6 +410,18 @@ html { overflow-x: hidden; }
 .ucg-doc .ucg-doc-contact a:hover { color: var(--navy); }
 .ucg-doc .ucg-grid { margin-top: 6px; }
 .ucg-doc-wide { max-width: none; }
+/* labelled facts (date, location) in the Delegate Portal */
+.ucg-facts { display: grid; gap: 18px; margin: 0; }
+.ucg-fact { display: grid; grid-template-columns: 130px minmax(0, 1fr); gap: 6px 24px; }
+.ucg-fact dt { font-size: 14px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--blue); padding-top: 3px; }
+.ucg-fact dd { margin: 0; font-size: 18px; line-height: 1.5; color: var(--navy); }
+.ucg-fact dd span { display: block; }
+.ucg-fact dd span:first-child { font-weight: 700; }
+.ucg .ucg-fact dd a { display: inline-flex; gap: 6px; margin-top: 8px; font-size: 15px; font-weight: 700; color: var(--blue); }
+.ucg .ucg-fact dd a:hover { color: var(--navy); }
+@media (max-width: 600px) {
+  .ucg-fact { grid-template-columns: 1fr; }
+}
 /* 16:9 YouTube embed in the Delegate Portal */
 .ucg-doc-video { margin-top: 6px; max-width: 880px; aspect-ratio: 16 / 9; border-radius: 16px; overflow: hidden; background: #0b1a30; box-shadow: 0 12px 32px rgba(25, 53, 97, 0.16); }
 .ucg-doc-video iframe { display: block; width: 100%; height: 100%; border: 0; }

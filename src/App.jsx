@@ -2,10 +2,10 @@ import { lazy, Suspense, useCallback, useEffect, useMemo, useState } from "react
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import Nav from "./components/Nav.jsx";
 import Home from "./pages/Home.jsx";
-// News and the Delegate Portal are hidden for now. To bring them back,
-// restore these imports, the routes below, and their NAV entries in data.js.
+import DelegatesPage from "./pages/DelegatesPage.jsx";
+// News is hidden for now. To bring it back, restore this import, its route
+// below, and its NAV entry in data.js.
 // import NewsPage from "./pages/NewsPage.jsx";
-// import DelegatesPage from "./pages/DelegatesPage.jsx";
 import NotFound from "./pages/NotFound.jsx";
 import { SiteContext } from "./lib/navigation.js";
 import { usePrefersReducedMotion } from "./lib/hooks.js";
@@ -13,14 +13,10 @@ import { usePrefersReducedMotion } from "./lib/hooks.js";
 // Split out: the Learning Center carries the whole reading library.
 const LearningCenter = lazy(() => import("./pages/learning/LearningCenter.jsx"));
 
-// The Delegate Portal stays reachable at /delegates on the local dev server
-// (not linked in the nav) so it can be previewed while hidden in production.
-const DelegatesPreview = import.meta.env.DEV ? lazy(() => import("./pages/DelegatesPage.jsx")) : null;
-
 /** pathname -> NAV target, for highlighting the current nav item. */
 const CURRENT_BY_PATH = {
   // "/news": "news",
-  // "/delegates": "delegates",
+  "/delegates": "delegates",
 };
 const currentFor = (pathname) =>
   pathname === "/learning" || pathname.startsWith("/learning/")
@@ -106,17 +102,7 @@ export default function App() {
             }
           />
           {/* <Route path="/news" element={<NewsPage />} /> */}
-          {/* <Route path="/delegates" element={<DelegatesPage />} /> */}
-          {DelegatesPreview && (
-            <Route
-              path="/delegates"
-              element={
-                <Suspense fallback={<div className="ucg-page" />}>
-                  <DelegatesPreview />
-                </Suspense>
-              }
-            />
-          )}
+          <Route path="/delegates" element={<DelegatesPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>

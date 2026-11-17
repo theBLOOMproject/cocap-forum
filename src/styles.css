@@ -410,6 +410,9 @@ html { overflow-x: hidden; }
 .ucg-doc .ucg-doc-contact a:hover { color: var(--navy); }
 .ucg-doc .ucg-grid { margin-top: 6px; }
 .ucg-doc-wide { max-width: none; }
+/* 16:9 YouTube embed in the Delegate Portal */
+.ucg-doc-video { margin-top: 6px; max-width: 880px; aspect-ratio: 16 / 9; border-radius: 16px; overflow: hidden; background: #0b1a30; box-shadow: 0 12px 32px rgba(25, 53, 97, 0.16); }
+.ucg-doc-video iframe { display: block; width: 100%; height: 100%; border: 0; }
 
 .ucg-source-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
 .ucg-source-row h3 { margin: 0; }

@@ -76,12 +76,21 @@ export const NEWS = [];
 
 export const PORTAL_CODE = "cocap26";
 
+/**
+ * Basic Information tab of the Delegate Portal. Each section has a heading
+ * (`h`) and any of: paragraphs (`p`), bullets (`ul`), or a YouTube video
+ * (`youtube`: the video id from its URL, plus a `title` for screen readers).
+ */
 export const PORTAL_DOC = [
   {
     h: "Basic Logistics",
     p: [
       "The Civic Assembly will take place in December 2026. Venue, schedule, meals, and stipend details will be posted here soon.",
     ],
+  },
+  {
+    h: "Orientation Recording",
+    youtube: { id: "JzE3dWELVlg", title: "Delegate orientation recording" },
   },
 ];
 

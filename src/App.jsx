@@ -13,6 +13,10 @@ import { usePrefersReducedMotion } from "./lib/hooks.js";
 // Split out: the Learning Center carries the whole reading library.
 const LearningCenter = lazy(() => import("./pages/learning/LearningCenter.jsx"));
 
+// The Delegate Portal stays reachable at /delegates on the local dev server
+// (not linked in the nav) so it can be previewed while hidden in production.
+const DelegatesPreview = import.meta.env.DEV ? lazy(() => import("./pages/DelegatesPage.jsx")) : null;
+
 /** pathname -> NAV target, for highlighting the current nav item. */
 const CURRENT_BY_PATH = {
   // "/news": "news",
@@ -103,6 +107,16 @@ export default function App() {
           />
           {/* <Route path="/news" element={<NewsPage />} /> */}
           {/* <Route path="/delegates" element={<DelegatesPage />} /> */}
+          {DelegatesPreview && (
+            <Route
+              path="/delegates"
+              element={
+                <Suspense fallback={<div className="ucg-page" />}>
+                  <DelegatesPreview />
+                </Suspense>
+              }
+            />
+          )}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>

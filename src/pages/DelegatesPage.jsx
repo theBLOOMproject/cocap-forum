@@ -97,6 +97,18 @@ export default function DelegatesPage() {
                         ))}
                       </ul>
                     )}
+                    {s.youtube && (
+                      <div className="ucg-doc-video">
+                        <iframe
+                          src={`https://www.youtube-nocookie.com/embed/${s.youtube.id}`}
+                          title={s.youtube.title}
+                          loading="lazy"
+                          allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                          referrerPolicy="strict-origin-when-cross-origin"
+                          allowFullScreen
+                        />
+                      </div>
+                    )}
                   </section>
                 ))}
 
